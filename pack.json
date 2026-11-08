@@ -1,0 +1,191 @@
+{
+  "pack": "econtone",
+  "version": "1.0.0",
+  "description": "Economics and management manuscript prose: score, polish, gate the rhythm, check AI traces, and arbitrate among candidate versions with a five-seat committee.",
+  "layout": {
+    "repository": {
+      "README.md": "pack home",
+      "pack.json": "this manifest",
+      "skills/": "the four skills, one folder each",
+      "examples/": "one run, start to finish",
+      "tests/": "the checks CI runs",
+      "docs/": "provenance, trademark, the mark",
+      "logo/brand/": "mark used by the README"
+    },
+    "discovery": "<skills-root>/<member>/SKILL.md",
+    "note": "In this repository the four skills live under skills/. Installed locally they must sit as siblings directly under a DSH skills root, because a skill is discovered at <root>/<name>/SKILL.md, one level deep. Copy the folders out of skills/, or point the skills root at skills/ itself."
+  },
+  "members": [
+    {
+      "name": "econtone-score",
+      "role": "triage",
+      "path": "./skills/econtone-score",
+      "entry": "SKILL.md",
+      "owns": [
+        "five-dimension scorecard",
+        "routing decision"
+      ],
+      "does_not": [
+        "editing",
+        "rewriting",
+        "suggesting replacement text"
+      ]
+    },
+    {
+      "name": "econtone-polish",
+      "role": "drafting",
+      "path": "./skills/econtone-polish",
+      "entry": "SKILL.md",
+      "owns": [
+        "task typing (TR-ZH2EN / TR-EN2ZH / PO-EN)",
+        "segment rules",
+        "causal fact-check",
+        "diction: terminology + register + connectives (terminology_check.py)",
+        "two-block output (Block A / Block B)"
+      ],
+      "does_not": [
+        "rhythm metrics",
+        "AI-trace scans"
+      ]
+    },
+    {
+      "name": "econtone-ai-trace",
+      "role": "gate",
+      "path": "./skills/econtone-ai-trace",
+      "entry": "SKILL.md",
+      "owns": [
+        "structural, diction and detector-facing scanners",
+        "baseline -> triage -> rewrite -> re-measure",
+        "before/after delta table"
+      ],
+      "does_not": [
+        "drafting",
+        "terminology policy",
+        "rhythm"
+      ]
+    },
+    {
+      "name": "econtone-prosody",
+      "role": "gate",
+      "path": "./skills/econtone-prosody",
+      "entry": "SKILL.md",
+      "owns": [
+        "nine banded prosody metrics",
+        "five sentence-level red-line markers",
+        "adjust-and-re-run loop",
+        "exit gate"
+      ],
+      "does_not": [
+        "translation",
+        "terminology",
+        "register",
+        "content edits",
+        "AI-trace rewrites"
+      ]
+    },
+    {
+      "name": "econtone-equilibrium",
+      "role": "orchestrator",
+      "path": "./skills/econtone-equilibrium",
+      "entry": "SKILL.md",
+      "owns": [
+        "optimal combination of the three execution skills",
+        "admissible schedule",
+        "equilibrium certificate"
+      ],
+      "does_not": [
+        "vote",
+        "rewrite",
+        "override a hard constraint",
+        "move sentence boundaries"
+      ]
+    }
+  ],
+  "pipeline": {
+    "order": [
+      "econtone-score",
+      "econtone-polish",
+      "econtone-prosody",
+      "econtone-ai-trace",
+      "econtone-equilibrium"
+    ],
+    "optional_stages": [
+      "econtone-polish",
+      "econtone-prosody",
+      "econtone-equilibrium"
+    ],
+    "precedence": [
+      "terminology",
+      "ai-trace",
+      "prosody"
+    ],
+    "constraint": "execution order is score -> polish -> prosody -> ai-trace, but precedence is polish > ai-trace > prosody: a rhythm fix never overrides a terminology decision, and a trace fix never overrides a term; ai-trace runs last as the delivery check",
+    "standalone": "any member may run directly on existing text; score and ai-trace are read-only in effect",
+    "note": "the score does not route: every draft runs the full pipeline; the score sets the editing latitude (100% to 0, cosine quarter-wave after 50)"
+  },
+  "brand": {
+    "mark": "black crescent arc + black disc + gold cycle line",
+    "palette": {
+      "ink": "#111111",
+      "gold": "#E8B23A",
+      "navy": "#2A4A6B",
+      "paper": "#F2EFE6"
+    },
+    "assets": "logo/brand/"
+  },
+  "repository": "EconTone",
+  "objectives": {
+    "order": [
+      "professional",
+      "trace",
+      "rhythm"
+    ],
+    "hard": [
+      "terminology",
+      "claim strength",
+      "meaning invariance"
+    ],
+    "soft": [
+      "rhythm proximity"
+    ],
+    "note": "lexicographic: a rhythm edit may never lower terminology or claim validity; rhythm is maximised subject to those constraints, never forced"
+  },
+  "ownership": {
+    "within_sentence": [
+      "econtone-polish",
+      "econtone-ai-trace"
+    ],
+    "sentence_boundaries_and_rhythm_moves": "econtone-prosody",
+    "prosody_moves": [
+      "split",
+      "merge",
+      "seam function words",
+      "semicolon<->period",
+      "clause reordering",
+      "voice switch",
+      "function-word insert/delete"
+    ],
+    "prosody_proposals_only": [
+      "sentence-style appositive",
+      "synonym swap",
+      "nominalisation change"
+    ],
+    "decision_owner_for_proposals": "econtone-polish",
+    "rule": "prosody may execute seven moves (split, merge, seam function words, semicolon<->period, clause reordering, voice switch, function-word insert/delete); the guard classifies them as boundary-only or licensed-rewording. A sentence-style appositive, a synonym swap or a nominalisation change is a proposal, decided by polish."
+  },
+  "philosophy": "together a fire, apart a sky full of stars — every execution skill is complete alone; the committee composes them into an equilibrium rather than a vote",
+  "equilibrium": {
+    "type": "lexicographic Stackelberg",
+    "leader": "econtone-polish (professional validity, hard)",
+    "second": "econtone-ai-trace (trace cleanliness)",
+    "follower": "econtone-prosody (rhythm proximity, enhancement)",
+    "stopping_rule": "no legal move raises any player's objective without violating a higher-priority constraint",
+    "admissible_order": "polish -> ai-trace -> prosody"
+  },
+  "instruments": {
+    "stackelberg": "schedule and stopping rule",
+    "shapley": "per-skill contribution, requires all 2^n coalitions",
+    "nash_bargaining": "adjudicates a move that improves one axis and hurts another",
+    "core": "checks whether any coalition of moves is jointly profitable"
+  }
+}

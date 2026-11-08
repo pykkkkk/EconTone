@@ -1,0 +1,18 @@
+PROSODY CHECK — examples/stage-5-final.md
+  6 sentences, 109 words (body prose only) | engine: heuristic (nltk missing)
+  ------------------------------------------------------------
+  metric                        value  band   target
+  nPVI                           39.1  OK     35–41 (red <15)
+  pct_stressed                   35.2  OK     29–39
+  alternation_rate               58.6  OK     52–62 (red >78)
+  inter_stress_CV                47.4  OK     43–54
+  mean_syll_per_word              1.8  OK     1.8–2.2 (red >2.4)
+  mean_words_per_sentence        18.2  OK     16–34 (red >45)
+  p95_words_per_sentence         24.0  OK     56 (red >80)
+  cv_words_per_sentence          26.4  OK     23 (red <14)
+  parallel_per100                 3.7  OK     2.8–6.8 (red >9)
+  ------------------------------------------------------------
+  RED-LINE MARKERS: none
+  ------------------------------------------------------------
+  VERDICT: PASS  (RED=0, WARN=0, MARKERS=0)
+

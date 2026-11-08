@@ -1,0 +1,38 @@
+==========================================================================
+STRUCTURAL AI-TRACE SCAN
+==========================================================================
+sentences 6 | words 108 | mean 18.0 | median 14.5 | stdev 6.1
+
+[A] PUNCTUATION TRACES
+    em_dash_triple (---)       0
+    em_dash_unicode            0
+    explanatory_colon          0
+    semicolon                  0
+    note: in LaTeX, '--' is an en dash and is legitimate in compound terms
+          (e.g. treated--control) and numeric ranges; only '---' and
+          mid-sentence explanatory dashes are traces.
+          A colon is a trace only when it replaces a sentence to explain
+          the preceding clause. Colons that introduce a genuine list, a
+          displayed equation, or a stated assumption are legitimate, so
+          treat this count as a probe, not a defect count.
+
+[B] TRANSITION-PEG DENSITY
+    1 of 6 sentences (16.7%)   target: <= 10% (lower is better; 0-5% is typical of human journal prose)
+      In addition        1
+
+[C] REPEATED SYNTACTIC TEMPLATES
+    none
+
+[D] LONG-SENTENCE LOAD
+    >45 words: 0 (0.0%)   far over: 0
+    target: <= 5% above the threshold; treat 60+ English words (or roughly 90+ Chinese characters) as a defect
+
+[E] RHYTHM (counter-check against over-flattening)
+    adjacent pairs                 5
+    within +/-2 words              60.0%   <- lower is better
+    with >=2x length ratio         20.0%   <- higher is better
+    longest same-length run        4
+    sentences <=9 words              0 (0.0%)
+    pct_within_2_words <= 25% and pct_with_2x_ratio >= 25%: only a low 'within +/-2 words' share shows real length variation. A low stdev alone does not imply monotony, but a high 'within +/-2 words' share does.
+    histogram (words // 10): {10: 4, 20: 2}
+

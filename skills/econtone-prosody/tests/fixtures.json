@@ -1,0 +1,62 @@
+[
+ {
+  "name": "pos_abstract",
+  "profile": "abstract",
+  "expect": "PASS",
+  "expect_markers": [],
+  "text": "a b s t r a c t Despite their strong positive average returns across numerous asset classes, momentum strategies can experience infrequent and persistent strings of negative returns. These momentum crashes are partly forecastable. They occur in panic states, following market declines and when market volatility is high, and are contemporaneous with market rebounds. The low ex ante expected returns in panic states are consistent with a conditionally high premium attached to the option like payoffs of past losers. An implementable dynamic momentum strategy based on forecasts of momentum s mean and variance approximately doubles the alpha and Sharpe ratio of a static momentum strategy and is not explained by other factors. These results are robust across multiple time periods, international equity markets, and other asset classes.",
+  "why": "published abstract the calibrated bands must accept"
+ },
+ {
+  "name": "pos_intro",
+  "profile": "intro",
+  "expect": "PASS",
+  "expect_markers": [],
+  "text": "A striking feature of the last hundred years has been the enormous expansion in university education. In 1900, only about one in a hundred young people in the world were enrolled at universities, but over the course of the Twentieth Century this rose to about one in five (Schofer & Meyer, 2005). The term university was coined by the University of Bologna, founded in 1088, the first of the medieval universities. These were communities with administrative autonomy, courses of study, publicly recognised degrees and research objectives and were distinct from the religion-based institutions that came before (De Ridder-Symoens & R egg, 1992). Since then, universities have spread worldwide in broadly the same form, and it has been argued that they were an important force in the Commercial Revolution through the development of legal institutions (Cantoni & Yuchtman, 2014) and the industrial revolution through their role in the building of knowledge and its dissemination (Mokyr, 2002). While there is an extensive literature on human capital and growth, there is relatively little research on the economic impact of universities themselves. In this paper, we develop a new dataset using the World Higher Education Database (WHED) that contains the location of universities in 1,500 regions across 78 countries in the period since World War II (when consistent sub-national economic data are available). We focus on how university formation is correlated with future economic",
+  "why": "published introduction paragraph"
+ },
+ {
+  "name": "pos_body_1",
+  "profile": "body",
+  "expect": "PASS",
+  "expect_markers": [],
+  "text": "dynamic portfolio outperforms the constant volatility portfolio, which, in turn, outperforms the basic WML portfolio. The Sharpe ratio (in parentheses on the gure legend) of the dynamic portfolio is nearly twice that of the static WML portfolio and a bit higher than the constant volatility momentum portfolio. In section 4.4, we conduct formal spanning tests among these portfolios as well as other factors. Consistent with our previous results, part of the outperformance of the dynamic strategy comes from its ability to mitigate momentum crashes. However, the dynamic strategy outperforms the other momentum strategies even outside of the 1930s and the nancial crisis period. 4.2. Subsample performance As a check on the robustness of our results, we perform the same analysis over a set of approximately quartercentury subsamples: 1927 to 1949, 1950 to 1974, 1975 to 1999, and 20 0 0 to 2013. We use the same mean and variance forecasting equation and the same calibration in each of the four subsamples. Panels B E of Fig. 6 plot the cumulative log returns by subsample and present the strategy Sharpe ratios (in parentheses) by subsample. For ease of comparison, returns for each of the strategies are scaled to an annualized volatility of 19% in each subsample. In each of the four subsamples,the ordering of performance remains the same. The dynamic strategy outper-",
+  "why": "published body paragraph"
+ },
+ {
+  "name": "pos_body_2",
+  "profile": "body",
+  "expect": "PASS",
+  "expect_markers": [],
+  "text": "Fig. 6. Dynamic momentum strategy performance. These plots show the cumulative returns to the dynamic strategy, (dyn), from Eqn. (6), in which is chosen so that the in-sample annualized volatility of the strategy is 19%, the same as that of the Center for Research in Security Prices (CRSP) valueweighted index over the full sample. For comparison, we also plot the cumulative log returns of the static winner-minus-lower (WML) strategy and a constant volatility strategy (cvol), similar to that of Barroso and Santa-Clara (2015), also scaled to an annualized volatility of 19%. Panel A plots the cumulative returns over the full sample period from 1927:07 to 2013:03. Panels B E plot the returns over four roughly quarter-century subsamples: 1927 1949, 1950 1974, 1975 1999, and 20 0 0 2013. The annualized Sharpe ratios of each strategy in each period are reported in parentheses in the corresponding legend.",
+  "why": "published body paragraph, shorter"
+ },
+ {
+  "name": "neg_dense",
+  "profile": "body",
+  "expect": "REVISE",
+  "expect_markers": [
+   "DENSE"
+  ],
+  "text": "The committee reviewed the proposal that had been submitted by the working group after the consultation period had closed and concluded that although the evidence base was incomplete the recommendation should still be forwarded to the board for a decision before the end of the fiscal year.",
+  "why": "one 50-word sentence: mean sentence length over the ceiling"
+ },
+ {
+  "name": "neg_flat",
+  "profile": "body",
+  "expect": "REVISE",
+  "expect_markers": [],
+  "text": "The panel met again to review the data and to discuss the findings with the team. The panel met again to review the data and to discuss the findings with the team. The panel met again to review the data and to discuss the findings with the team. The panel met again to review the data and to discuss the findings with the team. The panel met again to review the data and to discuss the findings with the team. The panel met again to review the data and to discuss the findings with the team.",
+  "why": "six identical-length sentences: sentence-length CV collapses"
+ },
+ {
+  "name": "neg_mono",
+  "profile": "body",
+  "expect": "REVISE",
+  "expect_markers": [
+   "POUNDING"
+  ],
+  "text": "Firm bank loan risk drop sharp cost spike debt fund. Bank staff note weak cash flow on new debt. Fund risk grows when short debt meets long loan books.",
+  "why": "piled monosyllabic content words: stressed run"
+ }
+]

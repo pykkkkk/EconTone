@@ -1,0 +1,10 @@
+EconTone score - stage-1-draft.md (profile: abstract)
+  P1 Terminology & register      24/40   2 banned variant(s); 1 register defect line(s)
+  P2 Claims & structure          18/40   3 causal verb(s), no identification language; 1 significance claim(s) without a magnitude; no stated design
+  T1 AI-trace risk                5/10   risk_index 50 (LOW-CONFIDENCE ELEVATED)
+  R1 Rhythm                       9/10   ADJUST: 0 RED, 0 marker(s), 2 WARN
+  --------------------------------------------------------------
+  TOTAL 56 / 100   (rows with n/a are excluded)
+  EDITING LATITUDE 98%  [full]
+  restructure, cut, rewrite, re-order �� subject to never changing the meaning
+  (orientation only - nothing was modified; the full pipeline still runs)

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EconTone candidate move",
+  "description": "One structured modification proposed by a player (a skill, or a sub-agent acting as a proposer). The move is a claim; the scripts decide whether it is accepted.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "player",
+      "kind",
+      "after"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9_-]{1,24}$"
+      },
+      "player": {
+        "enum": [
+          "polish",
+          "trace",
+          "prosody"
+        ]
+      },
+      "kind": {
+        "enum": [
+          "wording",
+          "boundary"
+        ]
+      },
+      "after": {
+        "type": "string",
+        "description": "path to the full text produced by applying this move, relative to the moves file"
+      },
+      "note": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "claimed": {
+        "type": "object",
+        "description": "what the proposer expects to happen; never used for the decision",
+        "properties": {
+          "rhythm": {
+            "type": "string"
+          },
+          "trace": {
+            "type": "string"
+          }
+        }
+      },
+      "gate": {
+        "enum": [
+          "mechanical",
+          "game"
+        ],
+        "description": "mechanical = applied before round 1, never voted on"
+      }
+    }
+  }
+}

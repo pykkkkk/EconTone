@@ -1,0 +1,10 @@
+EconTone score - stage-5-final.md (profile: abstract)
+  P1 Terminology & register      40/40   clean
+  P2 Claims & structure          40/40   claims match the evidence language
+  T1 AI-trace risk                7/10   risk_index 29 (LOW-CONFIDENCE MODERATE)
+  R1 Rhythm                      10/10   PASS: 0 RED, 0 marker(s), 0 WARN
+  --------------------------------------------------------------
+  TOTAL 97 / 100   (rows with n/a are excluded)
+  EDITING LATITUDE 9%  [corrections-only]
+  only fix outright errors; change nothing else, even if it could read better
+  (orientation only - nothing was modified; the full pipeline still runs)

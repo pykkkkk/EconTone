@@ -1,0 +1,40 @@
+==========================================================================
+DETECTOR-FACING RISK SCAN  (false-positive risk, English prose)
+==========================================================================
+paragraphs 1 | sentences 6 | words 106 | mean sentence 17.7 words
+reliability: SHORT (<250 words): detectors themselves are unreliable here; read as a direction only
+
+PROXY                                          VALUE STATUS
+--------------------------------------------------------------------------
+Burstiness (sentence-length CV %)              32.60    RED
+Formulaic density (per 100 words)               1.89    RED
+Self-repetition (repeated 4-grams %)            0.00     OK
+Lexical diversity (MTLD)                      106.00     OK
+Hedge density (per 100 words)                   0.00     OK
+--------------------------------------------------------------------------
+risk_index 49.9 / 100   tier LOW-CONFIDENCE ELEVATED   proxies in AI-like zone 2
+not scored (length/insufficient data): para_word_cv
+weights used 0.85 of 1.00
+
+  -> Burstiness (sentence-length CV %): Break the uniform cadence: put one short sentence (<=9 words) next to a long one so sentence length varies visibly.
+     band  OK human-like >= 50% | WARN 35-50% | RED < 35%
+  -> Formulaic density (per 100 words): Replace a stock phrase with the specific claim it is standing in for (name the mechanism, the actor, or the number).
+     band  OK <= 0.5 | WARN 0.5-1.5 | RED > 1.5
+
+note: risk_index is an internal diagnostic built from published proxies with fixed weights; it is NOT a detector prediction and must not be optimised as a target.
+
+[detail] burstiness: {'stdev_sent_len': 5.8, 'pct_sentences_le9_words': 0.0, 'pct_adjacent_within_2_words': 60.0, 'pct_adjacent_2x_ratio': 20.0}
+[detail] formulaic : {'multiword_phrases': 2, 'ai_lexicon_tokens': 0, 'multiword_hits': {'it is worth noting': 1, 'underscore the importance': 1}, 'lexicon_hits': {}}
+[detail] self-rep  : {'top_repeated_4grams': {}}
+[detail] diversity : {'msttr_50': 83.0, 'type_token_ratio': 71.7, 'distinct_types': 76, 'note': None}
+[detail] hedging   : {'hits': {}, 'modal_per100_info_only': 0.0}
+[detail] paragraphs: {'paragraphs_counted': 1, 'words_per_paragraph': [106], 'note': 'fewer than 3 usable paragraphs: not scored'}
+
+Bands (provisional; anchored on published detector conventions):
+  Burstiness (sentence-length CV %)          OK human-like >= 50% | WARN 35-50% | RED < 35%
+  Formulaic density (per 100 words)          OK <= 0.5 | WARN 0.5-1.5 | RED > 1.5
+  Self-repetition (repeated 4-grams %)       OK <= 45 | WARN 45-60 | RED > 60
+  Lexical diversity (MTLD)                   OK >= 60 | WARN 45-60 | RED < 45
+  Hedge density (per 100 words)              OK <= 0.5 | WARN 0.5-1.5 | RED > 1.5
+  Paragraph-shape dispersion (words CV %)    OK >= 35% | WARN 22-35% | RED < 22%
+

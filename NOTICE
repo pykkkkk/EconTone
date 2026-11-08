@@ -1,0 +1,14 @@
+EconTone
+Copyright 2026 EconTone contributors
+
+This product includes software developed by the EconTone contributors.
+
+The code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE).
+The prose in this repository is dedicated to the public domain under CC0 1.0 (see LICENSE-DOCS.md). The name and the mark are not licensed by either; see docs/trademark-notes.md.
+
+Third-party works are cited, not distributed:
+- the six graduate writing guides behind econtone-polish/references/econ_writing_rules.md,
+- the 42 open-access articles behind the econtone-prosody calibration bands,
+- the papers behind the metrics and the detector proxies, listed in each skill's README.
+
+None of those works are covered by this repository's licences, and none of them are included.

@@ -100,6 +100,23 @@ Load `references/terminology.md` for all task types.
 
 ---
 
+### Translation mode: the source structure is not a constraint
+
+When translating from Chinese (or any language) into English, **do not preserve the source sentence
+structure**. No reader of the target text has access to the source; the only standard that applies is the
+English disciplinary register.
+
+- Keep the **claims**: what is asserted, at what strength, with which magnitudes and hedges.
+- Discard the **rhetoric**: `一方面…另一方面…`, `研究表明`, `更加明显`, chained clauses joined by `；` exist
+  because Chinese prose allows them, not because the argument needs them.
+- A translation that reads as translated has failed, even if every clause maps one-to-one.
+- If a magnitude is present, carry it; if a claim has no magnitude, mark `[MAGNITUDE?]` — do not import one.
+
+**Corollary for the equilibrium.** Restructuring to English register can raise `risk_index` (shorter, more
+even sentences read as more machine-like to the proxy). That increase is a **recorded observation, not a
+verdict**: it does not by itself justify rejecting an edit that improves the English. Judge the target text
+on the English scale.
+
 ### Step 2b — Scope: sentences are fixed
 
 You may change words, syntax and punctuation **inside** a sentence. You may not split one sentence into

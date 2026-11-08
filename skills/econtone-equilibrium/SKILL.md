@@ -83,6 +83,13 @@ individually profitable — the current text is not core-stable and the blocking
 In the two runs so far the core check found exactly one blocking singleton (a trace rewrite worth +3.9 trace
 and +7.1 rhythm), which is what the pipeline then adopted.
 
+### Translation restructures; the trace proxy may follow
+
+Translating into English legitimately changes sentence structure, and restructuring tends to raise
+`risk_index`. Treat that rise as an observation to report, not an automatic veto: the text is judged on the
+English register, not on fidelity to a source no reader will see. Record the delta in the certificate and
+let the author decide.
+
 ## The entry rule, in the author's words
 
 > 博弈考虑的是如何让一段基本合格的 text 尽可能地达到优秀；如果它不合格，那还没有资格进入博弈环节。

@@ -156,6 +156,17 @@ on harness internals: the scanners are standard-library Python, the references p
 Positioning against the nearest prior work (RCBSF, Findings of ACL 2026): [`docs/positioning.md`](docs/positioning.md).
 First equilibrium measurements: [`docs/equilibrium-results.md`](docs/equilibrium-results.md).
 
+## References
+
+The full list lives in [`docs/references.md`](docs/references.md) — APA 7th edition, in five sections:
+writing guidance, methodology, terminology sources, the rhythm literature, and AI-detection work. It runs to
+over a hundred entries and is kept out of this page on purpose.
+
+What the citations mean: a work appears there because something in the repository depends on it — a method
+whose definition we implemented, a guide whose advice we paraphrased, a catalogue we checked. The **numbers**
+in this project (bands, thresholds, marker levels, the composition of `risk_index`) are its own calibration
+and appear in none of those works.
+
 ## Licence
 
 Apache-2.0 for code, CC0 1.0 for prose (no attribution required), the name and mark not licensed. Why:

@@ -77,6 +77,29 @@ git clone https://github.com/pykkkkk/EconTone.git
 cp -r EconTone/skills/econtone-* ~/.dsh/skills/
 ```
 
+## 依赖
+
+**无需安装任何第三方包。** 全部脚本仅使用 Python 标准库：`argparse`、`collections`、`importlib`、
+`itertools`、`json`、`math`、`os`、`re`、`shutil`、`statistics`、`subprocess`、`sys`、`tempfile`。
+不含 `numpy`、`pandas`，无构建步骤。
+
+| 项目 | 状态 |
+|---|---|
+| Python 3.8 及以上 | 必需（建议 3.10+） |
+| 任何第三方包 | **非必需** |
+| `nltk` + `cmudict` | **可选** —— 见下 |
+
+**可选：更准确的重音测量。** `econtone-prosody` 需要估计重读音节。若装有 `nltk` 及其 `cmudict` 语料，
+则使用词典标注的真实重音模式；否则回退到启发式估计，并在输出中注明
+（`stress source: heuristic (nltk missing)`）。参考带仍然有效，只是测量更粗。启用方式：
+
+```bash
+pip install nltk
+python -m nltk.downloader cmudict
+```
+
+其余全部功能——三个扫描器、评分卡、均衡引擎、12 项检查——在未安装任何依赖的 Python 上均可运行。
+
 ## 怎么提问
 
 五个 skill 不是一个按钮。提问方式决定执行哪一个、允许走多远。详见

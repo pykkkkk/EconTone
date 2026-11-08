@@ -181,6 +181,31 @@ on harness internals: the scanners are standard-library Python, the references p
 Positioning against the nearest prior work (RCBSF, Findings of ACL 2026): [`docs/positioning.md`](docs/positioning.md).
 First equilibrium measurements: [`docs/equilibrium-results.md`](docs/equilibrium-results.md).
 
+## Requirements
+
+**Nothing to install.** Every script uses the Python standard library only — `argparse`, `collections`,
+`importlib`, `itertools`, `json`, `math`, `os`, `re`, `shutil`, `statistics`, `subprocess`, `sys`,
+`tempfile`. No `numpy`, no `pandas`, no build step.
+
+| Version | Status |
+|---|---|
+| Python 3.8 or newer | required (3.10+ recommended) |
+| Any third-party package | **not required** |
+| `nltk` + `cmudict` | **optional** — see below |
+
+**Optional: better stress measurement.** `econtone-prosody` estimates stressed syllables. With `nltk` and
+its `cmudict` corpus it uses real dictionary stress patterns; without them it falls back to a heuristic and
+says so in its output (`stress source: heuristic (nltk missing)`). The bands still work; the measurement is
+just coarser. To enable it:
+
+```bash
+pip install nltk
+python -m nltk.downloader cmudict
+```
+
+Everything else — the scanners, the scorecard, the equilibrium engine, all 12 checks — runs on a bare
+Python install.
+
 ## How to ask for it
 
 The five skills are not one button. Each takes a different kind of request and returns a different kind of

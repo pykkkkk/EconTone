@@ -19,6 +19,14 @@
 
 ---
 
+## Contents
+
+- [Why use this](#why-use-this) · [The pipeline](#the-pipeline) · [The five skills](#the-five-skills)
+- [See it run](#see-it-run) · [Evidence](#evidence) · [What it refuses to do](#what-it-refuses-to-do)
+- [Install](#install) · [Repository](#repository) · [Design notes](#design-notes)
+- [How to ask for it](#how-to-ask-for-it) · [Built on DSH](#built-on-dsh)
+- [References](#references) · [Credits](#credits) · [Licence](#licence)
+
 Polishing a paragraph is not one decision. It is a conflict: the tighter sentence loses a canonical term,
 the clearer claim loses its hedge, the smoother cadence loses its teeth. Most tools resolve that conflict
 silently, with a fluency score.
@@ -50,7 +58,7 @@ A fluent rewriter supplies a plausible coefficient. This one marks the hole and 
 > evaluation is thin — two texts, eight coalitions, no large-scale benchmark. Treat the numbers
 > as measurements of the tools, not proof that the tools are right.
 
-## Why star this
+## Why use this
 
 | | |
 |---|---|

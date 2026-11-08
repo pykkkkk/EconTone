@@ -109,6 +109,8 @@ def decide(base, cand, kind, guard_legal):
         gains.append("rhythm %+.1f" % (cand["rhythm"] - base["rhythm"]))
     if cand["risk"] is not None and base["risk"] is not None and cand["risk"] < base["risk"] - 1e-9:
         gains.append("trace %.1f" % (base["risk"] - cand["risk"]))
+    if cand.get("tier", 1) < base.get("tier", 1):
+        gains.append("tier -%d" % (base.get("tier", 1) - cand.get("tier", 1)))
     if not gains:
         return False, "rejected: no measured objective improves"
     return True, "accepted: " + ", ".join(gains)

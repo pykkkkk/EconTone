@@ -48,7 +48,7 @@ A fluent rewriter supplies a plausible coefficient. This one marks the hole and 
 > evaluation is thin — two texts, eight coalitions, no large-scale benchmark. Treat the numbers
 > as measurements of the tools, not proof that the tools are right.
 
-## Why use this
+## Why star this
 
 | | |
 |---|---|
@@ -120,9 +120,6 @@ that starts at **56/100** and ends at **97/100**, with the `[MAGNITUDE?]` gap le
 That is the whole instruction. The agent clones the repository and copies the five directories into its
 skills root; there is no build step, no manifest to edit, and no dependency to install.
 
-How to phrase the request: [docs/prompting.md](docs/prompting.md) — templates per skill, and the prompts
-that reliably produce bad results.
-
 If you would rather do it yourself:
 
 ```bash
@@ -167,6 +164,16 @@ on harness internals: the scanners are standard-library Python, the references p
 
 Positioning against the nearest prior work (RCBSF, Findings of ACL 2026): [`docs/positioning.md`](docs/positioning.md).
 First equilibrium measurements: [`docs/equilibrium-results.md`](docs/equilibrium-results.md).
+
+## How to ask for it
+
+The five skills are not one button. Each takes a different kind of request and returns a different kind of
+answer, so the wording of the request decides which one runs and how far it is allowed to go.
+
+[`docs/prompting.md`](docs/prompting.md) covers it in six pages: what each skill expects and returns, the
+three ways to invoke one, the four parts of a prompt that does not go wrong, six templates, and six prompts
+that reliably produce bad results. A Chinese edition, written in the same structure and a stricter register,
+sits next to it: [`docs/prompting-zh.md`](docs/prompting-zh.md).
 
 ## Built on DSH
 

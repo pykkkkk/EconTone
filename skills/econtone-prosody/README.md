@@ -1,5 +1,7 @@
 # econtone-prosody
 
+**English** | [中文](README.zh.md)
+
 ### The rhythm gate: nine banded metrics, five sentence-level red-line markers
 
 Part of the **EconTone** pack. Runs last: `econtone-polish` drafts → `econtone-ai-trace` strips traces →

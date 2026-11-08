@@ -1,5 +1,7 @@
 # econtone-score
 
+**English** | [中文](README.zh.md)
+
 ### The triage gate: a four-row scorecard and an editing latitude
 
 Part of the **EconTone** pack. Runs first, edits nothing:

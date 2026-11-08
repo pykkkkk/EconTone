@@ -1,5 +1,7 @@
 # econtone-equilibrium
 
+**English** | [中文](README.zh.md)
+
 ### The equilibrium orchestrator: the optimal combination of the three execution skills
 
 Part of the **EconTone** pack. No voting, no ballots: it solves for the combination of legal moves that

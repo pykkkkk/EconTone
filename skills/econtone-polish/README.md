@@ -1,5 +1,7 @@
 # econtone-polish
 
+**English** | [中文](README.zh.md)
+
 ### Publication-grade translation and polish for economics, management, and quantitative social science
 
 Part of the **EconTone** pack. Drafts and polishes English (and translates 中文 ↔ English) to the

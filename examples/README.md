@@ -1,5 +1,7 @@
 # A complete run, start to finish
 
+**English** | [中文](README.zh.md)
+
 One abstract, four stages, every number below produced by the scripts in this repository. The draft is
 **synthetic** — written for this example, belonging to no one's paper — and it was written to contain the
 defects the pack exists to catch.

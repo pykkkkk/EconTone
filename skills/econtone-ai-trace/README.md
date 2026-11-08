@@ -1,5 +1,7 @@
 # econtone-ai-trace
 
+**English** | [中文](README.zh.md)
+
 ### The measured anti-AI-trace pass: three scanners, one before/after table
 
 Part of the **EconTone** pack. Runs between the two other members:

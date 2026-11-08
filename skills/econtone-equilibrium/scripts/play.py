@@ -48,6 +48,18 @@ def _run(script, args):
     return p.stdout or p.stderr or ""
 
 
+TIER_RANK = {"LOW": 1, "MODERATE": 2, "ELEVATED": 3, "HIGH": 4}
+
+
+def parse_tier(det_output):
+    """Read the base tier from the scanner line: 'tier LOW-CONFIDENCE ELEVATED' -> 3."""
+    m = re.search(r"tier[^\n]*", det_output or "")
+    if not m:
+        return 1
+    words = re.findall(r"\b(LOW|MODERATE|ELEVATED|HIGH)\b", m.group(0))
+    return TIER_RANK.get(words[-1], 1) if words else 1
+
+
 def measure(path, profile, texts):
     rhythm = _run(texts["rhythm"], [path, "--profile", profile])
     det = _run(texts["detect"], [path])
@@ -60,7 +72,7 @@ def measure(path, profile, texts):
     banned = len(re.findall(r"^\s+L\d+ ", term, re.M))
     defect_block = reg.split("CONTEXT")[0]
     register_hits = len(re.findall(r"tokens:", defect_block))
-    tier = 2 if "MODERATE" in det else (3 if "HIGH" in det else 1)
+    tier = parse_tier(det)
     return {
         "rhythm": float(m_rhythm.group(1)) if m_rhythm else None,
         "risk": float(m_risk.group(1)) if m_risk else None,
@@ -127,6 +139,14 @@ def selftest():
     assert decide(dict(base, terminology_hits=1), dict(ok, rhythm=92.9), "wording", True)[0]
     n += 1
     assert is_stale("a.md", "b.md") and not is_stale("a.md", "./a.md")
+    n += 1
+    assert parse_tier("risk_index 41.0 / 100   tier LOW-CONFIDENCE ELEVATED") == 3
+    n += 1
+    assert parse_tier("risk_index 12.0 / 100   tier LOW-CONFIDENCE LOW") == 1
+    n += 1
+    elevated = dict(base, tier=3)
+    moderate = dict(ok, tier=2, rhythm=92.9, risk=20.0)
+    assert decide(elevated, moderate, "wording", True)[0]
     n += 1
     return n
 

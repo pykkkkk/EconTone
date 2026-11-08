@@ -113,6 +113,30 @@ for dp, _, fs in os.walk(os.path.join(ROOT, "skills")):
                 fail("untested", "%s not in run_all.py" % rel)
 
 
+
+# K. the --profile vocabulary must agree across every script that accepts it
+PROFILE_RE = re.compile(r'add_argument\("--profile"[^)]*\)')
+CHOICE_RE = re.compile(r'choices=\[([^\]]*)\]')
+profiles = {}
+for dp, _, fs in os.walk(os.path.join(ROOT, "skills")):
+    for f in fs:
+        if not f.endswith(".py"):
+            continue
+        path = os.path.join(dp, f)
+        src = open(path, encoding="utf-8").read()
+        for decl in PROFILE_RE.findall(src):
+            m = CHOICE_RE.search(decl)
+            rel = os.path.relpath(path, ROOT).replace("\\", "/")
+            if not m:
+                fail("profile choices", "%s accepts --profile without choices" % rel)
+                continue
+            vals = tuple(sorted(v.strip().strip('"\'') for v in m.group(1).split(",") if v.strip()))
+            profiles[rel] = vals
+if len({v for v in profiles.values()}) > 1:
+    names = {v: [k for k, x in profiles.items() if x == v] for v in set(profiles.values())}
+    fail("profile choices", "disagreement: %s" % names)
+notes.append("profile vocabularies: %s" % (sorted(set(profiles.values())) if profiles else "none"))
+
 # J. schema drift: every move field play.py reads must be declared in move.schema.json
 PLAY = os.path.join(ROOT, "skills", "econtone-equilibrium", "scripts", "play.py")
 SCHEMA = os.path.join(ROOT, "skills", "econtone-equilibrium", "scripts", "move.schema.json")

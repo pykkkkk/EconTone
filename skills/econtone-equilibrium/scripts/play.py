@@ -160,7 +160,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--current", required=True)
     ap.add_argument("--moves", required=True)
-    ap.add_argument("--profile", default="body")
+    ap.add_argument("--profile", choices=["body", "abstract", "intro"], default="body")
     ap.add_argument("--rounds", type=int, default=3)
     ap.add_argument("--out", default="certificate.json")
     a = ap.parse_args()

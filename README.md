@@ -120,6 +120,9 @@ that starts at **56/100** and ends at **97/100**, with the `[MAGNITUDE?]` gap le
 That is the whole instruction. The agent clones the repository and copies the five directories into its
 skills root; there is no build step, no manifest to edit, and no dependency to install.
 
+How to phrase the request: [docs/prompting.md](docs/prompting.md) — templates per skill, and the prompts
+that reliably produce bad results.
+
 If you would rather do it yourself:
 
 ```bash

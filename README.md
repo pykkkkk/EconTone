@@ -83,6 +83,10 @@ A fluent rewriter supplies a plausible coefficient. This one marks the hole and 
     └─ 5  econtone-equilibrium  the optimal combination of 2–4, with a certificate
 ```
 
+> **On time.** A full equilibrium run measures every candidate move with four scripts, re-measures after
+> each acceptance, and can take **ten minutes or more** on a single section. It is not stuck — it is
+> measuring. Start it, leave it, and come back to the certificate.
+
 **Lexicographic, not weighted.** A rhythm gain never buys a canonical term; a trace fix never buys an
 overclaim. The equilibrium engine runs `score → polish → ai-trace → prosody` only because the other five
 orderings are inadmissible — the reason is written out in the skill, not assumed.

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """consistency.py — vertical and horizontal checks across the repository."""
 import json
@@ -111,6 +111,19 @@ for dp, _, fs in os.walk(os.path.join(ROOT, "skills")):
             rel = os.path.relpath(path, ROOT).replace("\\", "/")
             if rel not in run_all:
                 fail("untested", "%s not in run_all.py" % rel)
+
+
+# J. schema drift: every move field play.py reads must be declared in move.schema.json
+PLAY = os.path.join(ROOT, "skills", "econtone-equilibrium", "scripts", "play.py")
+SCHEMA = os.path.join(ROOT, "skills", "econtone-equilibrium", "scripts", "move.schema.json")
+if os.path.exists(PLAY) and os.path.exists(SCHEMA):
+    play_src = open(PLAY, encoding="utf-8").read()
+    fields = set(re.findall(r'mv\["(\w+)"\]', play_src)) | set(re.findall(r'mv\.get\("(\w+)"', play_src))
+    declared = set(json.load(open(SCHEMA, encoding="utf-8"))["items"]["properties"])
+    for f in sorted(fields - declared):
+        fail("schema drift", "play.py reads move field %r, schema does not declare it" % f)
+    if not fields:
+        fail("schema drift", "no move fields found in play.py -- pattern changed?")
 
 if "--json" in sys.argv:
     print(json.dumps({"problems": problems, "notes": notes}, ensure_ascii=False, indent=2))

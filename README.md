@@ -12,9 +12,11 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/skills-5-111111?style=flat-square" alt="5 skills">
-  <img src="https://img.shields.io/badge/calibrated_on-42_open--access_papers-E8B23A?style=flat-square" alt="corpus">
+  <img src="https://img.shields.io/badge/game-lexicographic_Stackelberg-E8B23A?style=flat-square" alt="game model">
+  <img src="https://img.shields.io/badge/glossary-135_term_pairs-2A4A6B?style=flat-square" alt="glossary">
+  <img src="https://img.shields.io/badge/prosody-9_metrics_5_markers-111111?style=flat-square" alt="prosody">
+  <img src="https://img.shields.io/badge/rules-32-E8B23A?style=flat-square" alt="writing rules">
   <img src="https://img.shields.io/badge/checks-12%2F12-2A4A6B?style=flat-square" alt="checks">
-  <img src="https://img.shields.io/badge/licence-Apache--2.0_%2B_CC0-111111?style=flat-square" alt="licence">
 </p>
 
 ---

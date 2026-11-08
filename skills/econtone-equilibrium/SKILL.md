@@ -86,9 +86,19 @@ and +7.1 rhythm), which is what the pipeline then adopted.
 ### Translation restructures; the trace proxy may follow
 
 Translating into English legitimately changes sentence structure, and restructuring tends to raise
-`risk_index`. Treat that rise as an observation to report, not an automatic veto: the text is judged on the
-English register, not on fidelity to a source no reader will see. Record the delta in the certificate and
-let the author decide.
+`risk_index`. The script **will reject** such a move, and that is intended: the rule is strict so that every
+rejection carries a number. The certificate then reports the rejected text, the metric that refused it, and
+what adopting it would cost. **The author decides.** A rule that could be relaxed on request would stop being
+a rule, and the report would lose the only thing that makes it useful — a stated price.
+
+## The output is advice, not a verdict
+
+Everything this pack produces is a **suggestion with its measurements attached**. The certificate names what
+was accepted, what was refused and why; the author may take the refused text, rewrite a third version, or
+reject the lot. Nothing here is final on the author's behalf, and no script tries to be.
+
+This is why the rules stay strict. A relaxed rule produces a quieter report; a strict rule produces a report
+with a price on every alternative. The second is what an author can actually decide with.
 
 ## The entry rule, in the author's words
 

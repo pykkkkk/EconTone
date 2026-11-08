@@ -113,9 +113,9 @@ English disciplinary register.
 - If a magnitude is present, carry it; if a claim has no magnitude, mark `[MAGNITUDE?]` — do not import one.
 
 **Corollary for the equilibrium.** Restructuring to English register can raise `risk_index` (shorter, more
-even sentences read as more machine-like to the proxy). That increase is a **recorded observation, not a
-verdict**: it does not by itself justify rejecting an edit that improves the English. Judge the target text
-on the English scale.
+even sentences read as more machine-like to the proxy). The script will refuse such an edit; the report then
+carries the refused text and the cost of taking it. The rule is not relaxed — the author overrides it if the
+English is worth the proxy cost, and that override is theirs to make, not the tool's.
 
 ### Step 2b — Scope: sentences are fixed
 

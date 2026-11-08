@@ -187,6 +187,16 @@ whose definition we implemented, a guide whose advice we paraphrased, a catalogu
 in this project (bands, thresholds, marker levels, the composition of `risk_index`) are its own calibration
 and appear in none of those works.
 
+## Credits
+
+- **DeepSeek Harness** — the environment the pack was developed in and the format it ships in.
+- **`logo-design`** (MIT, [`kaankiziltug/logo-design-skill`](https://github.com/kaankiziltug/logo-design-skill)) —
+  the design process and the `svg_audit.py` that scored the masters. The mark itself was drawn from scratch;
+  its 1,432-logotype library was searched only to learn which shapes the category already owns, so the result
+  could avoid them. Nothing from it was traced. Full account: [`docs/logo-notes.md`](docs/logo-notes.md).
+- **The calibration corpus** — 42 open-access papers, cited in [`docs/references.md`](docs/references.md) and
+  never redistributed. Their numbers describe published prose; they are not endorsements of this project.
+
 ## Licence
 
 Apache-2.0 for code, CC0 1.0 for prose (no attribution required), the name and mark not licensed. Why:

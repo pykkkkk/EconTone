@@ -2,6 +2,8 @@
   <img src="logo/brand/econtone-horizontal.svg" width="560" alt="EconTone">
 </p>
 
+**English** | [中文](README.zh.md)
+
 <p align="center">
   <b>Game-theoretic optimization of economics writing.</b><br>
   Five skills play a game over your prose. Not a vote — an equilibrium.<br>

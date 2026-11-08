@@ -48,7 +48,7 @@ A fluent rewriter supplies a plausible coefficient. This one marks the hole and 
 > evaluation is thin — two texts, eight coalitions, no large-scale benchmark. Treat the numbers
 > as measurements of the tools, not proof that the tools are right.
 
-## Why star this
+## Why use this
 
 | | |
 |---|---|

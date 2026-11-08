@@ -156,6 +156,26 @@ on harness internals: the scanners are standard-library Python, the references p
 Positioning against the nearest prior work (RCBSF, Findings of ACL 2026): [`docs/positioning.md`](docs/positioning.md).
 First equilibrium measurements: [`docs/equilibrium-results.md`](docs/equilibrium-results.md).
 
+## Built on DSH
+
+EconTone was developed on **DeepSeek Harness (DSH)** and ships in DSH's skill format: every member is a
+directory holding a `SKILL.md` (YAML frontmatter plus instructions), optionally with `scripts/` and
+`references/`. Point DSH's skills root at `skills/` and all five are discovered — no build step, no manifest.
+
+```powershell
+Copy-Item -Recurse skills\econtone-* "$env:USERPROFILE\.dsh\skills\"
+```
+
+The dependency stops there. No script imports a DSH API, none reads a harness variable, and nothing assumes a
+particular model. The scanners are standard-library Python; the instructions are Markdown. That is deliberate:
+a tool that certifies *writing* should be checkable without the harness that happened to run it.
+
+| Environment | How it runs |
+|---|---|
+| DSH | native — the five skills load as skills |
+| any harness that reads `SKILL.md` | native — same layout |
+| plain shell / CI | `python tests/run_all.py` (12 checks, no model, no network) |
+
 ## References
 
 The full list lives in [`docs/references.md`](docs/references.md) — APA 7th edition, in five sections:

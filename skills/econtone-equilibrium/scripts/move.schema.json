@@ -34,9 +34,20 @@
         "type": "string",
         "description": "path to the full text produced by applying this move, relative to the moves file"
       },
+      "base": {
+        "type": "string",
+        "description": "path to the text this move was built from; a move whose base is not the current text is stale and is skipped rather than applied"
+      },
       "note": {
         "type": "string",
         "maxLength": 200
+      },
+      "gate": {
+        "enum": [
+          "mechanical",
+          "game"
+        ],
+        "description": "mechanical = applied before round 1, never voted on"
       },
       "claimed": {
         "type": "object",
@@ -49,13 +60,6 @@
             "type": "string"
           }
         }
-      },
-      "gate": {
-        "enum": [
-          "mechanical",
-          "game"
-        ],
-        "description": "mechanical = applied before round 1, never voted on"
       }
     }
   }

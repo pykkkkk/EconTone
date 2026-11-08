@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """play.py — compute the equilibrium over several rounds. Deterministic.
 
@@ -126,7 +126,7 @@ def selftest():
     n += 1
     assert decide(dict(base, terminology_hits=1), dict(ok, rhythm=92.9), "wording", True)[0]
     n += 1
-    assert is_stale("a.md", "b.md") and not is_stale("a.md", "A.md")
+    assert is_stale("a.md", "b.md") and not is_stale("a.md", "./a.md")
     n += 1
     return n
 

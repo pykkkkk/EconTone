@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """consistency.py — vertical and horizontal checks across the repository."""
 import json
@@ -121,6 +121,6 @@ else:
     for p in problems:
         print("  FAIL  %s" % p)
     if not problems:
-        print("  PASS  structure · pack.json · links · path claims · script claims")
-        print("        retired names · cross-skill links · counts · version · CI coverage")
+        print("  PASS  structure | pack.json | links | path claims | script claims")
+        print("        retired names | cross-skill links | counts | version | CI coverage")
 sys.exit(1 if problems else 0)

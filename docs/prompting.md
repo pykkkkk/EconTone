@@ -1,5 +1,7 @@
 # Prompting guide
 
+> 中文版 / Chinese version: [`prompting-zh.md`](prompting-zh.md)
+
 How to ask EconTone for what you want, and how to tell when you are asking for the wrong thing.
 
 The five skills are not a single button. Each one accepts a different kind of request and returns a

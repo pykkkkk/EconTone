@@ -113,6 +113,15 @@ that starts at **56/100** and ends at **97/100**, with the `[MAGNITUDE?]` gap le
 
 ## Install
 
+**The one-liner.** Paste this into your agent:
+
+> https://github.com/pykkkkk/EconTone — install this skill pack.
+
+That is the whole instruction. The agent clones the repository and copies the five directories into its
+skills root; there is no build step, no manifest to edit, and no dependency to install.
+
+If you would rather do it yourself:
+
 ```bash
 git clone https://github.com/pykkkkk/EconTone.git
 cp -r EconTone/skills/econtone-* ~/.dsh/skills/          # macOS / Linux

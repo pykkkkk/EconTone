@@ -105,7 +105,7 @@ def main():
             print("  clean: no spelling, consistency or grammar slip detected")
         for x in findings:
             print("  %-9s %-14s -> %-12s %s" % (x["kind"], x["token"], x["suggest"], x["why"]))
-    return 1 if findings else 0
+    return 2 if findings else 0
 
 
 if __name__ == "__main__":

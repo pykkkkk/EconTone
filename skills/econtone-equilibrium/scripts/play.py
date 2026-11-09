@@ -49,6 +49,7 @@ def _run(script, args):
 
 
 TIER_RANK = {"LOW": 1, "MODERATE": 2, "ELEVATED": 3, "HIGH": 4}
+TIER_UNKNOWN = None   # INSUFFICIENT / UNDEFINED: not comparable, not "low"
 
 
 def parse_tier(det_output):
@@ -57,7 +58,7 @@ def parse_tier(det_output):
     if not m:
         return 1
     words = re.findall(r"\b(LOW|MODERATE|ELEVATED|HIGH)\b", m.group(0))
-    return TIER_RANK.get(words[-1], 1) if words else 1
+    return TIER_RANK.get(words[-1], TIER_UNKNOWN) if words else TIER_UNKNOWN
 
 
 def measure(path, profile, texts):
@@ -65,6 +66,7 @@ def measure(path, profile, texts):
     det = _run(texts["detect"], [path])
     term = _run(texts["term"], [path])
     reg = _run(texts["register"], [path])
+    pegs = _run(texts["pegs"], [path])
     m_rhythm = re.search(r"RHYTHM SCORE ([\d.]+)", rhythm)
     m_risk = re.search(r"risk_index ([\d.]+)", det)
     m_burst = re.search(r"Burstiness \(sentence-length CV %\)\s+([\d.]+)", det)
@@ -72,6 +74,8 @@ def measure(path, profile, texts):
     banned = len(re.findall(r"^\s+L\d+ ", term, re.M))
     defect_block = reg.split("CONTEXT")[0]
     register_hits = len(re.findall(r"tokens:", defect_block))
+    peg_parts = pegs.split("TRANSITION-PEG")
+    m_peg = re.search(r"\(([\d.]+)%\)", peg_parts[1]) if len(peg_parts) > 1 else None
     tier = parse_tier(det)
     return {
         "rhythm": float(m_rhythm.group(1)) if m_rhythm else None,
@@ -81,10 +85,12 @@ def measure(path, profile, texts):
         "terminology_hits": banned,
         "register_hits": register_hits,
         "tier": tier,
+        "peg_density": float(m_peg.group(1)) if m_peg else None,
     }
 
 
 KINDS = ("wording", "boundary")
+PLAYER_RANK = {"polish": 0, "trace": 1, "prosody": 2}
 
 
 def validate_move(mv):
@@ -103,8 +109,9 @@ def decide(base, cand, kind, guard_legal):
     if cand["terminology_hits"] > base["terminology_hits"]:
         return False, "rejected: adds %d terminology hit(s)" % (
             cand["terminology_hits"] - base["terminology_hits"])
-    if cand.get("tier", 1) > base.get("tier", 1):
-        return False, "rejected: risk tier %d -> %d" % (base.get("tier", 1), cand.get("tier", 1))
+    bt, ct = base.get("tier"), cand.get("tier")
+    if bt is not None and ct is not None and ct > bt:
+        return False, "rejected: risk tier %d -> %d" % (bt, ct)
     if cand["risk"] is not None and base["risk"] is not None and cand["risk"] > base["risk"] + 10:
         return False, "rejected: risk_index %.1f -> %.1f (+>10)" % (base["risk"], cand["risk"])
     if kind == "boundary":
@@ -123,8 +130,17 @@ def decide(base, cand, kind, guard_legal):
         gains.append("rhythm %+.1f" % (cand["rhythm"] - base["rhythm"]))
     if cand["risk"] is not None and base["risk"] is not None and cand["risk"] < base["risk"] - 1e-9:
         gains.append("trace %.1f" % (base["risk"] - cand["risk"]))
-    if cand.get("tier", 1) < base.get("tier", 1):
-        gains.append("tier -%d" % (base.get("tier", 1) - cand.get("tier", 1)))
+    if bt is not None and ct is not None and ct < bt:
+        gains.append("tier -%d" % (bt - ct))
+    bp, cp = base.get("peg_density"), cand.get("peg_density")
+    if bp is not None and cp is not None and cp < bp - 1e-9:
+        gains.append("pegs %.1f" % (bp - cp))
+    bb, cb = base.get("burstiness"), cand.get("burstiness")
+    if kind == "boundary" and bb is not None and cb is not None:
+        if cb > bb and bb < 35.0:
+            gains.append("burstiness out of RED (%.1f -> %.1f)" % (bb, cb))
+        elif cb - bb >= 3.0:
+            gains.append("burstiness %+.1f" % (cb - bb))
     if not gains:
         return False, "rejected: no measured objective improves"
     return True, "accepted: " + ", ".join(gains)
@@ -186,6 +202,7 @@ def main():
         "detect": _script("econtone-ai-trace", "scan_detectability.py"),
         "term": _script("econtone-polish", "terminology_check.py"),
         "register": _script("econtone-ai-trace", "scan_register.py"),
+        "pegs": _script("econtone-ai-trace", "scan_ai_traces.py"),
     }
     guard = _script("econtone-prosody", "segmentation_guard.py")
 
@@ -233,16 +250,19 @@ def main():
             row = {"id": mv["id"], "player": mv.get("player", "?"), "accepted": ok,
                    "reason": reason, "metrics": cand, "after": mv["after"], "base": mv["base"]}
             evaluated.append(row)
-            if ok and (best is None or (cand["rhythm"] or 0) > (best["metrics"]["rhythm"] or 0)):
-                best = row
+            if ok:
+                key = (PLAYER_RANK.get(mv.get("player"), 9), -(cand["rhythm"] or 0))
+                if best is None or key < best[0]:
+                    best = (key, row)
+        best_row = best[1] if best else None
         rounds.append({"round": r, "current": current, "moves": evaluated,
-                       "accepted": best["id"] if best else None})
-        if not best:
+                       "accepted": best_row["id"] if best_row else None})
+        if not best_row:
             break
-        used.add(best["id"])
-        current = best["after"]
+        used.add(best_row["id"])
+        current = best_row["after"]
         chain.append(current)
-        base_m = best["metrics"]
+        base_m = best_row["metrics"]
 
     cert = {
         "rounds": rounds,

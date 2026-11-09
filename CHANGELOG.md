@@ -11,8 +11,32 @@ Why: a reader who sees 1.0.0 assumes the release notes describe the shape of the
 patch strings. Corrections accumulate silently; the moment a correction changes what the tool can decide, that
 is a new release.
 
-**1.0.0 is the release in force.** The orchestrator fixes listed below (peg density and burstiness counted as
-gains, unknown risk tiers, player priority, mechanical-check exit codes) are corrections to 1.0.0, not 1.0.1.
+**1.0.1 is the release in force.** It opened because the change set added interfaces (the evidence chain, the
+stress-engine parameter) and changed what the orchestrator decides. Corrections after it fold into 1.0.1 until
+the next structural change.
+
+## 1.0.1 — the first release after 1.0.0 (2026-11-09)
+
+Full notes: [`RELEASE-1.0.1.md`](RELEASE-1.0.1.md). Summary of what changed since 1.0.0.
+
+**Added.** `evidence.py` in all five skills (Mermaid evidence chain: scripts, exit codes, references, rules);
+`--stress-engine auto|cmudict|heuristic` with an interpreter probe that looks for nltk; Chinese editions of
+every README with language toggles; a prompting guide in English and Chinese; a collocation table in the
+terminology reference; requirements, one-line install, table of contents, method badges, DSH origin, credits,
+reference list, and a written versioning policy.
+
+**Changed.** The orchestrator now counts transition-peg density, burstiness out of RED (boundary moves) and
+risk-tier improvement as gains; unknown risk tiers are no longer ranked as `LOW`; candidate selection follows
+the documented player priority instead of rhythm greed; abstract bands are the corpus 10th–90th percentiles;
+heuristic runs report the three stress metrics as `INFO` instead of scoring them; malformed moves are errors,
+not rejections; `mechanical_check.py` returns 0/2/1.
+
+**Fixed.** `ELEVATED` tiers were parsed as the lowest rank; the move schema omitted `base` and `gate`;
+`play.py` accepted any `--profile` string; a selftest passed only on Windows; a rebuild could destroy `.git`
+and the CI workflow.
+
+**Limits unchanged.** Evaluation remains thin; latitude is recorded, not enforced; cross-engine scores are not
+comparable; the equilibrium is bounded by the candidate set it is given.
 
 ## 1.0.0 — first public release (2026-11-08)
 

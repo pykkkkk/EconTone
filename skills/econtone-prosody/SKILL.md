@@ -296,3 +296,23 @@ PP moves sentence boundaries: running PP before TJP would leave every `原文片
 TJP's Block B pointing at text that no longer exists.
 
 PP also runs standalone: any finished English paragraph can enter here directly, without TJP.
+
+## The stress engine is part of the measurement
+
+`--stress-engine auto|cmudict|heuristic` selects how stressed syllables are found. The choice changes the
+numbers, so it is not an implementation detail:
+
+| engine | source of stress | what it scores |
+|---|---|---|
+| `cmudict` | the CMU pronouncing dictionary | every banded metric, including nPVI, alternation and inter-stress CV |
+| `heuristic` | syllable-count estimate | the same metrics, but nPVI, alternation and inter-stress CV are marked `INFO` and **not scored** |
+
+Two rules follow:
+
+1. **Every report states its engine.** `prosody_check.py` prints `engine: ...` in the header; `rhythm_score.py`
+   prints `ENGINE: ...` before the score. A report without that line is incomplete.
+2. **Scores are comparable only within one engine.** A heuristic score and a cmudict score measure different
+   things; putting them in the same table is an error, and a delta across engines means nothing.
+
+If `--stress-engine cmudict` is requested but the corpus is unavailable, the script exits with status 2 rather
+than silently falling back: a silent fallback would produce a number labelled with the wrong engine.

@@ -445,7 +445,13 @@ def apply_profile(name):
             TARGET_CARD[key] = val
 
 
+STRESS_KEYS = ("nPVI", "alternation_rate", "inter_stress_CV")
+
+
 def _status(key, val):
+    # A heuristic stress engine cannot resolve a six-point band: report, do not score.
+    if key in STRESS_KEYS and _CMU_STATE != "cmudict":
+        return "INFO"
     lo, hi, rlo, rhi, _ = TARGET_CARD[key]
     if rlo is not None and val < rlo:
         return "RED"
@@ -592,6 +598,8 @@ def print_report(rep):
     else:
         print("  RED-LINE MARKERS: none")
     print("  " + "-" * 60)
+    if _CMU_STATE != "cmudict":
+        print("  note: heuristic stress engine -- nPVI, alternation and inter-stress CV are reported, not scored")
     print("  VERDICT: %s  (RED=%d, WARN=%d, MARKERS=%d)" % (rep["verdict"], rep["n_red"], rep["n_warn"], rep["n_markers"]))
     if rep["verdict"] != "PASS":
         print("  ACTION: fix RED markers first, then WARN; re-run until PASS.")
@@ -714,6 +722,7 @@ def selftest():
         ok("cmu: 'method' has a 2-syllable pattern", len(_cmu_stress("method") or []) == 2)
     else:
         ok("cmu: fallback state recorded", _CMU_STATE in ("no_nltk", "no_data"))
+        ok("heuristic: stress rows are INFO", _status("nPVI", 39.0) == "INFO")
     USE_CMU = False
 
     # paragraph scoping: two paragraphs must be measured separately

@@ -50,6 +50,10 @@ usually what you want — but not when the problem is rhythm.
 [context]     what the draft is for: abstract, referee response, grant pitch
 ```
 
+**Say where the text sits.** "Abstract", "introduction", "Section 4" is not decoration: the rhythm bands
+differ by section, and a body-calibrated band judges an abstract by the wrong ruler. One clause is enough:
+*"this is the abstract, for Regional Science and Urban Economics"*.
+
 A prompt missing `constraints` is the single most common cause of a bad result. Without them the polish
 pass will smooth a hedge into a claim, and you will not notice until a referee does.
 

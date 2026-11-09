@@ -86,6 +86,25 @@ python scripts/prosody_check.py selftest                  # 27 assertions
 
 ---
 
+## The section decides the band
+
+A journal abstract is not a body paragraph, and the same cadence rules do not apply to both. An abstract
+runs four to six sentences; its sentence-length spread is **structurally** narrower than a body section's,
+so a body-calibrated band will call a perfectly ordinary abstract flat.
+
+Three profiles ship with the skill — `abstract`, `intro`, `body` — and they differ exactly where the corpus
+shows a genre effect:
+
+| Band | abstract | intro | body |
+|---|---|---|---|
+| `cv_words_per_sentence` floor | 14 | 18 | generic |
+| `mean_words_per_sentence` | 16–34 | 14–31 | 16–34 |
+| `parallel_per100` | 2.8–6.8 | 1.4–8.0 | default |
+
+**Always pass `--profile`.** The default is `body`; applying it to an abstract reports failures that are
+artefacts of the genre, not defects of the prose. If the section is unknown, ask the user instead of guessing:
+a two-point rhythm difference can flip the verdict.
+
 ## The target bands (calibrated on 42 published papers)
 
 Comfort band = the 10th-90th percentile of published prose in 42 OA economics / finance /

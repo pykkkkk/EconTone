@@ -84,6 +84,20 @@ def measure(path, profile, texts):
     }
 
 
+KINDS = ("wording", "boundary")
+
+
+def validate_move(mv):
+    """Return an error string, or None. A bad move must not look like a rejection."""
+    if mv.get("kind", "wording") not in KINDS:
+        return "error: unknown kind %r (expected wording or boundary)" % mv.get("kind")
+    if not os.path.exists(mv["after"]):
+        return "error: after file not found: %s" % os.path.basename(mv["after"])
+    if not os.path.exists(mv["base"]):
+        return "error: base file not found: %s" % os.path.basename(mv["base"])
+    return None
+
+
 def decide(base, cand, kind, guard_legal):
     """Pure function: same numbers, same verdict."""
     if cand["terminology_hits"] > base["terminology_hits"]:
@@ -146,6 +160,8 @@ def selftest():
     n += 1
     assert parse_tier("risk_index 12.0 / 100   tier LOW-CONFIDENCE LOW") == 1
     n += 1
+    assert validate_move({"id": "x", "kind": "reorder", "after": "a", "base": "b"}).startswith("error: unknown kind")
+    n += 1
     elevated = dict(base, tier=3)
     moderate = dict(ok, tier=2, rhythm=92.9, risk=20.0)
     assert decide(elevated, moderate, "wording", True)[0]
@@ -197,6 +213,11 @@ def main():
         evaluated, best = [], None
         for mv in moves:
             if mv["id"] in used:
+                continue
+            bad = validate_move(mv)
+            if bad:
+                evaluated.append({"id": mv["id"], "player": mv.get("player", "?"),
+                                  "accepted": False, "error": True, "reason": bad})
                 continue
             if is_stale(mv["base"], current):
                 evaluated.append({"id": mv["id"], "player": mv.get("player", "?"),

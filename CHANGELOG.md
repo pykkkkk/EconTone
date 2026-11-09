@@ -1,5 +1,19 @@
 # Changelog
 
+## Versioning policy
+
+A release number changes when the **structure or the feature set** changes: a new script, a new skill, a new
+judgement rule, a new interface, a band recalibration that moves verdicts. Bug fixes, documentation edits and
+threshold tweaks that restore intended behaviour **do not** open a new release; they are folded into the
+version in force and described as corrections.
+
+Why: a reader who sees 1.0.0 assumes the release notes describe the shape of the tool, not a running tally of
+patch strings. Corrections accumulate silently; the moment a correction changes what the tool can decide, that
+is a new release.
+
+**1.0.0 is the release in force.** The orchestrator fixes listed below (peg density and burstiness counted as
+gains, unknown risk tiers, player priority, mechanical-check exit codes) are corrections to 1.0.0, not 1.0.1.
+
 ## 1.0.0 — first public release (2026-11-08)
 
 **Five skills, one equilibrium.**

@@ -256,6 +256,8 @@ def main():
     }
     json.dump(cert, open(a.out, "w", encoding="utf-8"), indent=2)
 
+    for a in auto:
+        print("  mechanical  %s  auto-applied (outside the game)" % a["id"])
     print("ROUNDS: %d   FINAL: %s" % (len(rounds), os.path.basename(current)))
     for rd in rounds:
         print("  round %d  accepted: %s" % (rd["round"], rd["accepted"] or "none"))

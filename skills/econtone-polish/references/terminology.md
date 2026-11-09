@@ -224,3 +224,24 @@ domestic-journal variants, or colloquial renderings.
 | back-of-the-envelope calculation | 粗略估算 |
 | stylized fact | 文体化事实 / 典型事实 |
 | takeaway | 主要结论 |
+
+## Collocations
+
+Pairings where one form is standard in the discipline and the other is merely understandable. **The basis
+is disciplinary convention, not measurement.** The 42-paper corpus contains two instances of
+`counterfactual` in 126,298 words, which cannot support a collocation claim; the rules below are register
+rules, and should be reported as such when applied.
+
+| Avoid | Use | Why |
+|---|---|---|
+| `counterfactual exercise` | `counterfactual analysis` / `counterfactual simulation` | "exercise" reads as an illustrative calculation and understates a model-based comparison |
+| `counterfactual experiment` (non-experimental) | `counterfactual analysis` | "experiment" implies a real intervention |
+| `hypothetical scenario` (in a causal claim) | `counterfactual` | the glossary already bans 假设情境 as a colloquial rendering |
+| `impact` for a regression coefficient | `effect` / `association` | "impact" asserts a mechanism the design may not identify |
+| `prove` for an empirical estimate | `show` / `find evidence that` | estimates do not prove |
+| `significant` without a test | `substantial` / `large` | "significant" is reserved for statistical significance |
+| `correlation proves` | `is consistent with` | a correlation cannot establish the claim alone |
+
+**How to cite this table.** Say "collocation convention" in the change log, not "terminology reference",
+unless the entry also appears in the glossary above. The distinction matters: the glossary is checkable
+against the file, a collocation is a judgement about the discipline.

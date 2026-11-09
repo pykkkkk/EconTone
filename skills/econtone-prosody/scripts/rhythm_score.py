@@ -84,11 +84,14 @@ def main():
     if "--profile" in args:
         profile = args[args.index("--profile") + 1]
     report = run_checker(path, profile)
+    engine = "cmudict" if "engine: cmudict" in report else "heuristic"
     r = score(report)
     if "--json" in args:
         print(json.dumps(r, ensure_ascii=False, indent=2))
     else:
-        print("RHYTHM SCORE %s / 100  %s" % (r["score"], "(markers: %s)" % ", ".join(r["markers"])
+        if "--json" not in sys.argv:
+        print("  ENGINE: %s  |  comparable only with another %s run" % (engine, engine))
+    print("RHYTHM SCORE %s / 100  %s" % (r["score"], "(markers: %s)" % ", ".join(r["markers"])
                                              if r["markers"] else ""))
         for row in r["rows"]:
             print("  %-26s %8.1f  %s" % (row["metric"], row["value"], row["band"]))

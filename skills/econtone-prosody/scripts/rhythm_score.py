@@ -17,6 +17,7 @@ This is a heuristic proximity measure, not a quality grade.
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -26,17 +27,29 @@ CHECKER = os.path.expandvars(
     r"%USERPROFILE%\.dsh\skills\econtone-prosody\scripts\prosody_check.py")
 if not os.path.exists(CHECKER):
     CHECKER = os.path.join(HERE, "prosody_check.py")
-# prefer the PATH interpreter: it usually carries nltk/cmudict, which the skill's bands assume
-import shutil  # noqa: E402
-PYTHON = shutil.which("python") or sys.executable
+def _python_with_nltk():
+    """Prefer an interpreter that can import nltk; fall back to the current one."""
+    for cand in (shutil.which("python"), shutil.which("python3"), sys.executable):
+        if not cand:
+            continue
+        try:
+            p = subprocess.run([cand, "-c", "import nltk"], capture_output=True, timeout=20)
+            if p.returncode == 0:
+                return cand
+        except Exception:
+            continue
+    return sys.executable
+
+
+PYTHON = _python_with_nltk()
 
 ROW = re.compile(r"^\s{2}([A-Za-z_]+)\s+([\d.]+)\s+(OK|WARN|RED)\b")
 POINTS = {"OK": 100.0, "WARN": 50.0, "RED": 0.0}
 MARKER = re.compile(r"^    \[(SLURRY|POUNDING|ROBOTIC|DENSE|FLAT)\]", re.M)
 
 
-def run_checker(path, profile):
-    p = subprocess.run([PYTHON, CHECKER, path, "--profile", profile],
+def run_checker(path, profile, engine="auto"):
+    p = subprocess.run([PYTHON, CHECKER, path, "--profile", profile, "--stress-engine", engine],
                        capture_output=True, text=True, encoding="utf-8", errors="replace")
     return p.stdout or p.stderr or ""
 
@@ -83,7 +96,10 @@ def main():
     profile = "body"
     if "--profile" in args:
         profile = args[args.index("--profile") + 1]
-    report = run_checker(path, profile)
+    engine_req = "auto"
+    if "--stress-engine" in args:
+        engine_req = args[args.index("--stress-engine") + 1]
+    report = run_checker(path, profile, engine_req)
     engine = "cmudict" if "engine: cmudict" in report else "heuristic"
     r = score(report)
     if "--json" in args:

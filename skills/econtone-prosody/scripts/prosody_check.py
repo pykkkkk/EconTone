@@ -759,11 +759,20 @@ def main():
     ap.add_argument("--text", help="analyse a string instead of a file")
     ap.add_argument("--json", action="store_true", help="emit machine-readable JSON")
     ap.add_argument("--no-cmu", action="store_true", help="ignore CMUdict even if installed")
+    ap.add_argument("--stress-engine", choices=["auto", "cmudict", "heuristic"], default="auto",
+                    help="auto: cmudict when importable; cmudict: require it; heuristic: force the estimator")
     ap.add_argument("--profile", choices=["body", "abstract", "intro"], default="body",
                     help="genre band set: body (default), abstract, intro")
     ap.add_argument("cmd", nargs="?", help="use 'selftest' to run assertions")
     args = ap.parse_args()
     global USE_CMU
+    if args.stress_engine == "heuristic":
+        USE_CMU = False
+    elif args.stress_engine == "cmudict":
+        _cmu()
+        if _CMU_STATE != "cmudict":
+            print("error: cmudict requested but unavailable (%s)" % _CMU_STATE, file=sys.stderr)
+            return 2
     if args.no_cmu:
         USE_CMU = False
     apply_profile(args.profile)

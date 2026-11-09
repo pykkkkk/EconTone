@@ -419,9 +419,9 @@ PROFILES = {
     "abstract": {
         "pct_stressed": (29.0, 39.0, None, None, "Keep ~1 in 3 syllables stressed."),
         "mean_syll_per_word": (1.8, 2.2, None, 2.4, "Abstracts run denser; keep under 2.4 syllables per word."),
-        "mean_words_per_sentence": (16.0, 34.0, None, 45.0, "Abstract sentences run shorter than body prose."),
-        "p95_words_per_sentence": (None, 56.0, None, 80.0, "A 56-word 95th percentile is the abstract norm."),
-        "cv_words_per_sentence": (23.0, None, 14.0, None, "Abstracts vary less; only a very flat spread is a defect."),
+        "mean_words_per_sentence": (16.5, 33.5, None, 45.0, "10th-90th percentile of 42 published abstracts (n=42)."),
+        "p95_words_per_sentence": (None, 56.0, None, 80.0, "90th percentile of the same 42 abstracts."),
+        "cv_words_per_sentence": (22.7, 72.6, 14.0, None, "10th-90th percentile of the same 42 abstracts; abstracts vary less than body prose, but a flat spread is still a defect."),
         "parallel_per100": (2.8, 6.8, None, 9.0, "Abstracts carry slightly more coordination."),
         "inter_stress_CV": (43.0, 54.0, None, None, "Vary stress spacing."),
     },

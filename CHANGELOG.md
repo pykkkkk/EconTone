@@ -12,7 +12,14 @@ patch strings. Corrections accumulate silently; the moment a correction changes 
 is a new release.
 
 **1.0.2 is the release in force.** It opened because the orchestrator gained a second regime (`--mode free`),
-which changes what the tool can decide. Corrections after it fold into 1.0.2 until the next structural change.
+which changes what the tool can decide. Corrections and additions that do not change the shape of the tool wait
+under *Unreleased* until the next structural change.
+
+## Unreleased
+
+- `scripts/compare_modes.py` — runs every candidate once per regime and writes a four-part comparison page
+  ending in **How to use the two results**. Held back from a version number on purpose: the release policy in
+  this file opens a version when the shape of the tool changes, and this is one script.
 
 ## 1.0.2 — two regimes (2026-11-10)
 

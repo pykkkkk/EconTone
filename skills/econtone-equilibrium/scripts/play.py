@@ -104,7 +104,21 @@ def validate_move(mv):
     return None
 
 
-def decide(base, cand, kind, guard_legal):
+def composite_gain(base, cand, kind):
+    """Points of progress: risk first, rhythm and burstiness at a tenth of a point each."""
+    pts = 0.0
+    if base.get("risk") is not None and cand.get("risk") is not None:
+        pts += max(0.0, base["risk"] - cand["risk"])
+    if base.get("rhythm") is not None and cand.get("rhythm") is not None:
+        pts += 0.1 * max(0.0, cand["rhythm"] - base["rhythm"])
+    if kind == "boundary" and base.get("burstiness") is not None and cand.get("burstiness") is not None:
+        pts += 0.1 * max(0.0, cand["burstiness"] - base["burstiness"])
+    if base.get("peg_density") is not None and cand.get("peg_density") is not None:
+        pts += 0.1 * max(0.0, base["peg_density"] - cand["peg_density"])
+    return round(pts, 2)
+
+
+def decide(base, cand, kind, guard_legal, iteration_cost=0.0):
     """Pure function: same numbers, same verdict."""
     if cand["terminology_hits"] > base["terminology_hits"]:
         return False, "rejected: adds %d terminology hit(s)" % (
@@ -143,6 +157,9 @@ def decide(base, cand, kind, guard_legal):
             gains.append("burstiness %+.1f" % (cb - bb))
     if not gains:
         return False, "rejected: no measured objective improves"
+    pts = composite_gain(base, cand, kind)
+    if pts < iteration_cost:
+        return False, "rejected: gain %.2f below iteration cost %.2f" % (pts, iteration_cost)
     return True, "accepted: " + ", ".join(gains)
 
 
@@ -194,6 +211,10 @@ def main():
     ap.add_argument("--moves", required=True)
     ap.add_argument("--profile", choices=["body", "abstract", "intro"], default="body")
     ap.add_argument("--rounds", type=int, default=3)
+    ap.add_argument("--iteration-cost", type=float, default=2.0,
+                    help="points of composite gain a move must clear to be worth another round")
+    ap.add_argument("--coalition", choices=["none", "maxsum", "nash"], default="none",
+                    help="none: lexicographic leader-then-followers; maxsum/nash: trace and prosody bargain over the joint gain")
     ap.add_argument("--mode", choices=["constrained", "free"], default="constrained",
                     help="constrained: boundaries belong to prosody and must pass the guard; "
                          "free: either player may cross a boundary (validity and trace rules still bind)")
@@ -256,13 +277,23 @@ def main():
                 elif a.mode == "free":
                     guard_note = "ILLEGAL (content changed; allowed in free mode)"
             legal_for_decide = True if a.mode == "free" else legal
-            ok, reason = decide(base_m, cand, mv.get("kind", "wording"), legal_for_decide)
+            ok, reason = decide(base_m, cand, mv.get("kind", "wording"), legal_for_decide, a.iteration_cost)
             row = {"id": mv["id"], "player": mv.get("player", "?"), "accepted": ok,
                    "reason": reason, "metrics": cand, "after": mv["after"], "base": mv["base"],
                    "guard": guard_note}
             evaluated.append(row)
             if ok:
-                key = (PLAYER_RANK.get(mv.get("player"), 9), -(cand["rhythm"] or 0))
+                rank = PLAYER_RANK.get(mv.get("player"), 9)
+                if rank == 0 or a.coalition == "none":
+                    key = (rank, -(cand["rhythm"] or 0))
+                else:
+                    d_risk = max(0.0, (base_m.get("risk") or 0) - (cand.get("risk") or 0))
+                    d_rh = max(0.0, (cand.get("rhythm") or 0) - (base_m.get("rhythm") or 0))
+                    if a.coalition == "nash":
+                        joint = (d_risk * d_rh) ** 0.5
+                    else:
+                        joint = d_risk + 0.1 * d_rh
+                    key = (1, -joint)
                 if best is None or key < best[0]:
                     best = (key, row)
         best_row = best[1] if best else None
@@ -281,6 +312,9 @@ def main():
         "final_text_path": current,
         "final_metrics": base_m,
         "mechanical_auto_applied": auto,
+        "game": {"form": "non-cooperative Stackelberg, iterative", "leader": "polish",
+                 "followers": ["trace", "prosody"], "coalition": a.coalition,
+                 "iteration_cost": a.iteration_cost},
         "mode": a.mode,
         "mode_note": ("boundaries are owned by prosody and must pass the guard" if a.mode == "constrained"
                       else "free: boundaries may be crossed; validity and trace rules still bind"),
@@ -292,6 +326,7 @@ def main():
 
     for a in auto:
         print("  mechanical  %s  auto-applied (outside the game)" % _m["id"])
+    print("GAME: coalition=%s  iteration-cost=%.1f" % (a.coalition, a.iteration_cost))
     print("MODE: %s   ROUNDS: %d   FINAL: %s" % (a.mode, len(rounds), os.path.basename(current)))
     for rd in rounds:
         print("  round %d  accepted: %s" % (rd["round"], rd["accepted"] or "none"))

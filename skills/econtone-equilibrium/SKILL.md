@@ -128,6 +128,48 @@ certificate is where the choice is recorded. If the numbers do not support a rec
 Every comparison names the regime in the certificate (`mode`) and the guard outcome per move, so a reader can
 tell a refusal from a permission.
 
+## The game, formally
+
+**Form.** A non-cooperative, multi-level, feedback-constrained Stackelberg game, repeated over rounds.
+
+| player | role | constraint class | payoff |
+|---|---|---|---|
+| `polish` | leader | **hard**: academic norms — terminology and claim strength must reach full marks | none; it defines the feasible set |
+| `ai-trace` | follower | **semi-hard**: the risk tier may not worsen; a rise of more than 10 points is refused | risk reduction, pegs, burstiness |
+| `prosody` | follower | soft: rhythm is an enhancement | rhythm proximity, burstiness |
+
+Because the leader's constraint is hard, **the feasible region is the set of texts that score full marks on
+validity**. The equilibrium is then determined by the two followers inside that region, not by the leader.
+
+**Feedback.** A boundary move changes sentence lengths, which changes burstiness and therefore the trace
+player's measurement. The order is not a one-shot sequence but a loop: the follower's move can raise or lower the
+leader-of-the-second-stage's payoff, so the game is played until no move clears its cost.
+
+**Iteration cost.** Each additional round costs measurement and the author's attention. A move is worth taking
+only if its **composite gain** — `Δrisk` in points, plus a tenth of `Δrhythm`, `Δburstiness` and `Δpegs` — exceeds
+`--iteration-cost` (default 2.0). A gain below the cost is recorded as
+`gain 0.40 below iteration cost 2.00` rather than accepted for being positive.
+
+**Not enforced yet: the leader's full-marks condition.** The feasible region is defined as the texts that
+score full marks on validity, but `play.py` does not verify that `polish` reached it — it only refuses moves that
+add terminology hits. Until the scorecard is wired into the loop, a certificate states an equilibrium inside a
+region the author has to confirm by hand. The gap is deliberate for now: enforcing it means letting the
+orchestrator block on a score, and that decision belongs to the author.
+
+## Optional: a coalition of the two followers
+
+The base game is non-cooperative. With `--coalition maxsum|nash` the two followers bargain instead of being
+ranked:
+
+| coalition | selection rule | reading |
+|---|---|---|
+| `none` (default) | leader first, then trace before prosody | the documented lexicographic order |
+| `maxsum` | maximise `Δrisk + 0.1·Δrhythm` jointly | one unit of risk equals ten points of rhythm |
+| `nash` | maximise the geometric mean of the two positive gains | neither player can be bought off with a gain the other does not share |
+
+A coalition never overrides the leader: `polish` moves are still taken first, and the hard validity constraint
+still binds. What changes is only how the two followers rank the moves left in the feasible set.
+
 ## Two regimes: constrained and free
 
 | regime | who may move a sentence boundary | guard | use when |

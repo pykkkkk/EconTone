@@ -105,6 +105,29 @@ For a writer without a settled sense of the discipline, the same menu is a teach
 claim strength are **hard constraints** and are marked as such, register follows the field, and rhythm is
 presented as an aesthetic choice rather than a rule.
 
+## Comparing the two regimes
+
+When the author has not chosen a regime, run both and report them side by side:
+
+```bash
+python scripts/compare_modes.py --current draft.md --moves moves.json --profile abstract -o comparison.md
+```
+
+The script runs **each candidate on its own** in each regime — a shared run would let the first acceptance hide
+the others — picks the best accepted result per regime, and writes one page with a fixed structure:
+
+1. the two results (file, sentence count, word count);
+2. one metrics table (draft / constrained / free: total, rhythm, risk, burstiness, tier);
+3. what differed, move by move, with the guard verdict;
+4. **How to use the two results** — always present, always in the same order.
+
+Section 4 is rule-driven, never asserted: it says whether to ship the free version for a rewrite, whether the
+constrained version is the submission copy, what did *not* change between them, and the reminder that the
+certificate is where the choice is recorded. If the numbers do not support a recommendation, the bullet says so.
+
+Every comparison names the regime in the certificate (`mode`) and the guard outcome per move, so a reader can
+tell a refusal from a permission.
+
 ## Two regimes: constrained and free
 
 | regime | who may move a sentence boundary | guard | use when |

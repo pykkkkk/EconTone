@@ -194,6 +194,9 @@ def main():
     ap.add_argument("--moves", required=True)
     ap.add_argument("--profile", choices=["body", "abstract", "intro"], default="body")
     ap.add_argument("--rounds", type=int, default=3)
+    ap.add_argument("--mode", choices=["constrained", "free"], default="constrained",
+                    help="constrained: boundaries belong to prosody and must pass the guard; "
+                         "free: either player may cross a boundary (validity and trace rules still bind)")
     ap.add_argument("--out", default="certificate.json")
     a = ap.parse_args()
 
@@ -243,12 +246,20 @@ def main():
                                             % (os.path.basename(mv["base"]), os.path.basename(current))})
                 continue
             cand = measure(mv["after"], a.profile, texts)
-            legal = True
+            legal, guard_note = True, "not checked (wording)"
             if mv.get("kind") == "boundary":
-                legal = "LEGAL" in _run(guard, [current, mv["after"]])
-            ok, reason = decide(base_m, cand, mv.get("kind", "wording"), legal)
+                grep = _run(guard, [current, mv["after"]])
+                legal = "LEGAL" in grep
+                guard_note = "LEGAL" if legal else "ILLEGAL"
+                if legal:
+                    guard_note = "LEGAL"
+                elif a.mode == "free":
+                    guard_note = "ILLEGAL (content changed; allowed in free mode)"
+            legal_for_decide = True if a.mode == "free" else legal
+            ok, reason = decide(base_m, cand, mv.get("kind", "wording"), legal_for_decide)
             row = {"id": mv["id"], "player": mv.get("player", "?"), "accepted": ok,
-                   "reason": reason, "metrics": cand, "after": mv["after"], "base": mv["base"]}
+                   "reason": reason, "metrics": cand, "after": mv["after"], "base": mv["base"],
+                   "guard": guard_note}
             evaluated.append(row)
             if ok:
                 key = (PLAYER_RANK.get(mv.get("player"), 9), -(cand["rhythm"] or 0))
@@ -270,6 +281,9 @@ def main():
         "final_text_path": current,
         "final_metrics": base_m,
         "mechanical_auto_applied": auto,
+        "mode": a.mode,
+        "mode_note": ("boundaries are owned by prosody and must pass the guard" if a.mode == "constrained"
+                      else "free: boundaries may be crossed; validity and trace rules still bind"),
         "rule": "lexicographic; boundary moves need a LEGAL guard; stale candidates are skipped",
         "stopped_because": ("no acceptable move in round %d" % len(rounds))
         if not rounds[-1]["accepted"] else "round budget exhausted",
@@ -277,8 +291,8 @@ def main():
     json.dump(cert, open(a.out, "w", encoding="utf-8"), indent=2)
 
     for a in auto:
-        print("  mechanical  %s  auto-applied (outside the game)" % a["id"])
-    print("ROUNDS: %d   FINAL: %s" % (len(rounds), os.path.basename(current)))
+        print("  mechanical  %s  auto-applied (outside the game)" % _m["id"])
+    print("MODE: %s   ROUNDS: %d   FINAL: %s" % (a.mode, len(rounds), os.path.basename(current)))
     for rd in rounds:
         print("  round %d  accepted: %s" % (rd["round"], rd["accepted"] or "none"))
         for row in rd["moves"]:

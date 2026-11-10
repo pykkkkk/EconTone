@@ -91,6 +91,34 @@ rejection carries a number. The certificate then reports the rejected text, the 
 what adopting it would cost. **The author decides.** A rule that could be relaxed on request would stop being
 a rule, and the report would lose the only thing that makes it useful — a stated price.
 
+## The last mile belongs to the author
+
+A paper is signed by a person. Everything this pack produces is therefore a **menu of actions**, not a verdict:
+each row states what could change, what it would buy, and what it would cost. A **strategy** is a combination of
+those actions, and the certificate offers a recommended one — but the author may add, drop or reorder moves to
+suit a taste that no measurement captures.
+
+This is why the report lists rejected moves with their price rather than discarding them: a scholar who prefers
+the rejected version can take it, and will know what it costs.
+
+For a writer without a settled sense of the discipline, the same menu is a teaching device: terminology and
+claim strength are **hard constraints** and are marked as such, register follows the field, and rhythm is
+presented as an aesthetic choice rather than a rule.
+
+## Two regimes: constrained and free
+
+| regime | who may move a sentence boundary | guard | use when |
+|---|---|---|---|
+| `constrained` (default) | only `econtone-prosody` | boundary moves must return LEGAL | single-skill calls, production text, anything the author will sign |
+| `free` | either player | the guard still measures and reports, but does not block | the structure itself is in question: a paragraph that may need re-cutting, a translation whose sentence order is inherited |
+
+`--mode free` lifts the **ownership** of boundaries, not the substance: terminology hits must still not rise and
+the risk tier must not worsen. Every move records whether it changed content (`ILLEGAL (content changed;
+allowed in free mode)`), so a free run is auditable rather than permissive.
+
+Calling one skill on its own is always constrained. The two regimes exist in the orchestrator, because that is
+where a combination is chosen.
+
 ## The output is advice, not a verdict
 
 Everything this pack produces is a **suggestion with its measurements attached**. The certificate names what

@@ -11,9 +11,26 @@ Why: a reader who sees 1.0.0 assumes the release notes describe the shape of the
 patch strings. Corrections accumulate silently; the moment a correction changes what the tool can decide, that
 is a new release.
 
-**1.0.1 is the release in force.** It opened because the change set added interfaces (the evidence chain, the
-stress-engine parameter) and changed what the orchestrator decides. Corrections after it fold into 1.0.1 until
-the next structural change.
+**1.0.2 is the release in force.** It opened because the orchestrator gained a second regime (`--mode free`),
+which changes what the tool can decide. Corrections after it fold into 1.0.2 until the next structural change.
+
+## 1.0.2 — two regimes (2026-11-10)
+
+Full notes: [`RELEASE-1.0.2.md`](RELEASE-1.0.2.md).
+
+**Added.** `--mode constrained|free` on `play.py`. In `constrained` (default) sentence boundaries belong to
+`econtone-prosody` and a boundary move must return LEGAL; in `free` either player may cross a boundary, and the
+guard still measures and reports the content change but does not block. Terminology hits and the risk tier
+remain hard constraints in both modes.
+
+**Added.** The design principle is now written into the skill: *the last mile belongs to the author*. The
+certificate is a menu of **actions** with prices; a **strategy** is a combination the author assembles. The
+recommended path is a default, not a verdict.
+
+**Changed.** Certificates record `mode` and, per move, a `guard` field, so a free run stays auditable. Standard
+output prints the mode alongside the round count.
+
+**Limits unchanged.** Free mode does not relax validity or trace: it lifts the ownership of boundaries only.
 
 ## 1.0.1 — the first release after 1.0.0 (2026-11-09)
 
